@@ -1,0 +1,16 @@
+include ./assets/bemto/lib/index
+- set_bemto_settings({ modifier: "--" })
+
+include ./partials/head
+include ./partials/header
+include ./partials/footer
+
+<!DOCTYPE html>
+html(lang="en")
+  head
+    +head()
+  +b.BODY.page
+    +e.DIV.wrap
+      +header()
+      +b.MAIN.app-container#app
+      +footer()
