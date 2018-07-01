@@ -1,5 +1,6 @@
 import mongoose from '../libs/mongoose';
 import User from '../models/user';
+import passport from 'koa-passport';
 
 export default class LoginRouter {
   public async logIn(ctx: any) {
@@ -10,13 +11,15 @@ export default class LoginRouter {
       .then(user => {
         console.log("User created:", user);
         ctx.body = ctx.request.body;
-      })
-      .catch(err => {
-        console.log("Cannot create user");
-        ctx.status = 403;
-        ctx.body = {errorCode: 403, errorMessage: "User is already created!"};
-        ctx.throw(err);
       });
+  }
+
+  public async signIn(ctx: any, next: any) {
+    await passport.authenticate('local', {
+      successRedirect: '/home',
+      failureRedirect: '/',
+      failureFlash: true
+    })(ctx, next);
   }
 
   public async logOut(ctx: any, next: any) {

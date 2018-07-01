@@ -1,5 +1,5 @@
 import mongoose from 'mongoose';
-import * as beautifyUnique from 'mongoose-beautiful-unique-validation';
+import beautifyUnique from 'mongoose-beautiful-unique-validation';
 
 const connectOptions = {
   poolSize: 10,
@@ -9,6 +9,9 @@ const connectOptions = {
   reconnectTries: 25
 };
 
+mongoose.plugin(beautifyUnique);
+mongoose.Promise = Promise;
+
 mongoose.connect('mongodb://localhost/shop', connectOptions)
   .then(() => {
     console.log("Connect to mongo!");
@@ -16,8 +19,5 @@ mongoose.connect('mongodb://localhost/shop', connectOptions)
   .catch(err => {
     console.error(err);
   });
-
-// mongoose.plugin(beautifyUnique);
-mongoose.Promise = Promise;
 
 export default mongoose;

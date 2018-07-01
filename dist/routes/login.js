@@ -12,6 +12,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const user_1 = __importDefault(require("../models/user"));
+const koa_passport_1 = __importDefault(require("koa-passport"));
 class LoginRouter {
     logIn(ctx) {
         return __awaiter(this, void 0, void 0, function* () {
@@ -21,13 +22,16 @@ class LoginRouter {
                 .then(user => {
                 console.log("User created:", user);
                 ctx.body = ctx.request.body;
-            })
-                .catch(err => {
-                console.log("Cannot create user");
-                ctx.status = 403;
-                ctx.body = { errorCode: 403, errorMessage: "User is already created!" };
-                ctx.throw(err);
             });
+        });
+    }
+    signIn(ctx, next) {
+        return __awaiter(this, void 0, void 0, function* () {
+            yield koa_passport_1.default.authenticate('local', {
+                successRedirect: '/home',
+                failureRedirect: '/',
+                failureFlash: true
+            })(ctx, next);
         });
     }
     logOut(ctx, next) {

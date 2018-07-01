@@ -36,7 +36,10 @@ router.get('/*', (ctx, next) => __awaiter(this, void 0, void 0, function* () {
     ctx.body = HTML_PAGE;
     yield next();
 }));
-router.post('/login', loginRouter.logIn);
+router.get('/home', (ctx) => __awaiter(this, void 0, void 0, function* () {
+    ctx.body = "Hello, Wordl! (REGISTER DONE!)";
+}));
+router.post('/login', loginRouter.signIn);
 router.post('/logout', loginRouter.logOut);
 module.exports = router;
 //# sourceMappingURL=index.js.map

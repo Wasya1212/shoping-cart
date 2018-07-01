@@ -22,7 +22,11 @@ router.get('/*', async (ctx, next) => {
   await next();
 });
 
-router.post('/login', loginRouter.logIn);
+router.get('/home', async ctx => {
+  ctx.body = "Hello, Wordl! (REGISTER DONE!)";
+});
+
+router.post('/login', loginRouter.signIn);
 router.post('/logout', loginRouter.logOut);
 
 export = router;
